@@ -1,4 +1,4 @@
-package repl
+package main
 
 import (
 	"bufio"
@@ -6,11 +6,18 @@ import (
 	"os"
 	"strings"
 
-	"github.com/tobiasandraschko/pokedexcli/commands"
+	"github.com/tobiasandraschko/pokedexcli/internal/pokeapi"
 )
 
-func Run() {
-	commandsMap := commands.GetCommands()
+type config struct {
+	pokeapiClient    pokeapi.Client
+	nextLocationsURL *string
+	prevLocationsURL *string
+}
+
+func startRepl(cfg *config) {
+	commandsMap := getCommands()
+
 	reader := bufio.NewScanner(os.Stdin)
 	for {
 		fmt.Print("Pokedex > ")
@@ -26,7 +33,7 @@ func Run() {
 		command, exists := commandsMap[commandName]
 
 		if exists {
-			command.Callback()
+			command.callback(cfg)
 			continue
 		} else {
 			fmt.Println("Unknown command. Type 'help' for a list of commands.")
