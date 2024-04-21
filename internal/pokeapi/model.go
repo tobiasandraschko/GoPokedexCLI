@@ -1,9 +1,14 @@
 package pokeapi
 
-import "net/http"
+import (
+	"net/http"
+
+	"github.com/tobiasandraschko/pokedexcli/internal/pokecache"
+)
 
 type Client struct {
 	httpClient http.Client
+	cache      pokecache.Cache
 }
 
 type LocationResponse struct {
