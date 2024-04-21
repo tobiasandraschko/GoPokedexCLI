@@ -1,9 +1,9 @@
 package main
 
 import (
-	"fmt"
+	"github.com/tobiasandraschko/pokedexcli/repl"
 )
 
 func main() {
-	fmt.Println("Hello World")
+	repl.Run()
 }
