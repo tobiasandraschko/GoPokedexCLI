@@ -5,17 +5,9 @@ import (
 	"fmt"
 	"os"
 	"strings"
-
-	"github.com/tobiasandraschko/pokedexcli/internal/pokeapi"
 )
 
-type config struct {
-	pokeapiClient    pokeapi.Client
-	nextLocationsURL *string
-	prevLocationsURL *string
-}
-
-func startRepl(cfg *config) {
+func startCli(config *config) {
 	commandsMap := getCommands()
 
 	reader := bufio.NewScanner(os.Stdin)
@@ -33,7 +25,7 @@ func startRepl(cfg *config) {
 		command, exists := commandsMap[commandName]
 
 		if exists {
-			command.callback(cfg)
+			command.callback(config)
 			continue
 		} else {
 			fmt.Println("Unknown command. Type 'help' for a list of commands.")
