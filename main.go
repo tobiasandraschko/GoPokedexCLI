@@ -7,9 +7,10 @@ import (
 )
 
 func main() {
-	c := pokeapi.SpawnClient(5 * time.Second)
-	config := &config{
-		client: c,
+	pokeClient := pokeapi.NewClient(5*time.Second, time.Minute*5)
+	cfg := &config{
+		pokeapiClient: pokeClient,
 	}
-	startCli(config)
+
+	startRepl(cfg)
 }
